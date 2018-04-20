@@ -1,19 +1,23 @@
-function makeEl(tag, innerText, attrs) {
-    el = document.createElement(tag);
-    el.innerText = innerText;
-    if (attrs) {
-        for (let i in attrs) {
-            el.setAttribute(i, attrs[i]);
-        }
-    }
-    return el;
-}
-
 let Templater = {
     run: function() {
-        let pageEl = Array.from(document.getElementsByTagName('bootstrap_button'));
-        pageEl.forEach(element => {
-            element.replaceWith(makeEl('button', "Some Text", { 'class': "btn btn-default", 'type': 'submit' }));
-        });
+        for (i in this.newTags) {
+            let pageEl = Array.from(document.getElementsByTagName(i));
+            let newEl = document.createElement('div');
+            newEl.innerHTML = this.newTags[i];
+            pageEl.forEach(element => {
+                element.replaceWith(newEl.firstChild)
+            });
+        }
+    },
+    addTag: function(oldElement, template) {
+        this.newTags[oldElement] = template;
+    },
+    newTags: {
+
     }
 }
+
+// Templater.addTag('bootstrap_button', '<button class="btn btn-default" type = "submit"> Some Text </button>');
+// Templater.addTag('bootstrap_link', '<a class="btn btn-default" href="#" role="button">Some Another Text</a>');
+// Templater.run();
+//console.log(Templater.newTags);
