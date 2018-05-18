@@ -6,10 +6,9 @@ function htmlToElement(html) {
 }
 
 let Templater = {
-    run: function() {
-
+    run: function(that) {
         for (i in this.newTags) {
-            let pageEl = Array.from(document.getElementsByTagName(i));
+            let pageEl = Array.from(that[0].getElementsByTagName(i));
             pageEl.forEach(element => {
                 let classList = element.classList + '';
                 let typeAttr = element.getAttribute('type');
@@ -37,12 +36,15 @@ function getAttr(el) {
     return elClass;
 }
 
-// Templater.addTag(
-//     'bootstrap_button',
-//     '<button class="{{class}}" type="{{type}}">' +
-//     '{{html}}' +
-//     '</button>'
-// );
+(function($) {
+    $.fn.templater = function(tag) {
+        for (let i in tag.tags) {
+            let oldTag = i;
+            let newTmp = tag.tags[i];
+            Templater.addTag(oldTag, newTmp);
+        }
+        Templater.run(this);
 
-// Templater.run();
-//console.log(Templater.newTags);
+    };
+
+})(jQuery);
