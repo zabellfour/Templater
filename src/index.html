@@ -10,12 +10,21 @@
 
 <body>
 
-
+    <bootstrap_button>
+        Some Text
+    </bootstrap_button>
     <script src="templater.js"></script>
-    <bootstrap_button></bootstrap_button>
     <script>
-      Templater.run();
-    <script>
+        Templater.addTag(
+            'bootstrap_button',
+            '<button class="btn btn-default" type="submit">' +
+            'Some Text' +
+            '</button>'
+        );
+        Templater.run();
+    </script>
+
+
 </body>
 
 </html>

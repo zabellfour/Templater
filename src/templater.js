@@ -1,17 +1,16 @@
 Templater = {
+    tags: {},
     run: function() {
-        let inputObj = {
-            'bootstrap_button': '<button class="btn btn-default" type="submit">Some Text</button>'
-        }
-        let tagArr = Object.keys(inputObj);
-        for (i in inputObj) {
+        //  let tagArr = Object.keys(inputObj);
+        console.log(this.tags)
+        for (i in this.tags) {
             let pageElements = Array.from(document.getElementsByTagName(i));
             pageElements.forEach(element => {
-                element.outerHTML = inputObj[i]
+                element.outerHTML = this.tags[i]
             });
         }
+    },
+    addTag: function(oldElement, template) {
+        this.tags[oldElement] = template;
     }
 }
-
-
-//Templater.run(template)
